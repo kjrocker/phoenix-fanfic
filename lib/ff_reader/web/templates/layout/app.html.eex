@@ -7,23 +7,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello FfReader!</title>
+    <title>The Future of Fanfiction</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
+    <div class="ui container">
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <%= render "sign_in_sign_out.html", conn: @conn %><br><br>
-          </ul>
-        </nav>
-        <span class="logo"></span>
+        <div class="ui menu">
+          <a class="item" href="/">Home</a>
+          <a class="item" href="/users">Authors</a>
+          <div class="right menu">
+            <%= render "sign_in_sign_out.html", conn: @conn %>
+          </div>
+        </div>
       </header>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= if get_flash(@conn, :info) do %>
+        <p class="ui info message"><%= get_flash(@conn, :info) %></p>
+      <%= end %>
+
+      <%= if get_flash(@conn, :error) do %>
+        <p class="ui error message"><%= get_flash(@conn, :error) %></p>
+      <%= end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
