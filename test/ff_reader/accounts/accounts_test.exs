@@ -6,8 +6,8 @@ defmodule FfReader.AccountsTest do
   describe "users" do
     alias FfReader.Accounts.User
 
-    @valid_attrs %{email: "some email", password_hash: "some password_hash"}
-    @update_attrs %{email: "some updated email", password_hash: "some updated password_hash"}
+    @valid_attrs %{email: "some email", password: "some password"}
+    @update_attrs %{email: "some updated email", password: "some updated password"}
     @invalid_attrs %{email: nil, password_hash: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -32,7 +32,6 @@ defmodule FfReader.AccountsTest do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
       assert user.email == "some email"
-      assert user.password_hash == "some password_hash"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -44,7 +43,6 @@ defmodule FfReader.AccountsTest do
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
       assert user.email == "some updated email"
-      assert user.password_hash == "some updated password_hash"
     end
 
     test "update_user/2 with invalid data returns error changeset" do

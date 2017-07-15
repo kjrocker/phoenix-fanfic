@@ -15,7 +15,17 @@ defmodule FfReader.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :password_hash])
-    |> validate_required([:email, :password_hash])
+    |> cast(attrs, [:email, :password])
+    |> validate_required([:email, :password])
+    |> hash_password
+    |> delete_change(:password)
+  end
+
+  defp hash_password(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      _ -> changeset
+    end
   end
 end
