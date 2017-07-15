@@ -1,6 +1,8 @@
 defmodule FfReader.Web.SessionController do
   use FfReader.Web, :controller
 
+  alias FfReader.Accounts
+
   def new(conn, _params) do
     render conn, "new.html"
   end

@@ -1,4 +1,4 @@
-defmodule FfReader.Web.Token do
+defmodule FfReader.Accounts.Token do
   use FfReader.Web, :controller
 
   def unauthenticated(conn, _params) do

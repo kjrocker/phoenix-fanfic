@@ -13,7 +13,7 @@ defmodule FfReader.Web.Router do
 
   pipeline :browser_auth do
     plug Guardian.Plug.VerifySession
-    plug Guardian.Plug.EnsureAuthenticated, handler: FfReader.Token
+    plug Guardian.Plug.EnsureAuthenticated, handler: FfReader.Accounts.Token
     plug Guardian.Plug.LoadResource
   end
 

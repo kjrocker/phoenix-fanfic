@@ -19,6 +19,7 @@ defmodule FfReader.Accounts.User do
     |> validate_required([:email, :password])
     |> hash_password
     |> delete_change(:password)
+    |> unique_constraint(:email)
   end
 
   defp hash_password(changeset) do

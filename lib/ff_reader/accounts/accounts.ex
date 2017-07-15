@@ -1,8 +1,7 @@
 defmodule FfReader.Accounts do
 
   import Ecto.Query, warn: false
-  import Comonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
-  import Plug.Conn
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
   alias FfReader.Repo
 

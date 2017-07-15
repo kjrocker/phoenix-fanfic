@@ -22,6 +22,8 @@ defmodule FfReader.Web do
       import Plug.Conn
       import FfReader.Web.Router.Helpers
       import FfReader.Web.Gettext
+
+      import FfReader.Web.AuthHelper
     end
   end
 
@@ -39,6 +41,8 @@ defmodule FfReader.Web do
       import FfReader.Web.Router.Helpers
       import FfReader.Web.ErrorHelpers
       import FfReader.Web.Gettext
+
+      import FfReader.Web.AuthHelper
     end
   end
 
