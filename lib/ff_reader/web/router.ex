@@ -7,6 +7,14 @@ defmodule FfReader.Web.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
+  pipeline :browser_auth do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.EnsureAuthenticated, handler: FfReader.Token
+    plug Guardian.Plug.LoadResource
   end
 
   pipeline :api do
@@ -17,7 +25,13 @@ defmodule FfReader.Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/users", UserController, except: [:delete]
+    resources "/users", UserController, except: [:update, :delete]
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
+  end
+
+  scope "/", FfReader.Web do
+    pipe_through [:browser, :browser_auth]
+    resources "/users", UserController, except: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.
