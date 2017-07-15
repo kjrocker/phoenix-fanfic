@@ -17,6 +17,7 @@ defmodule FfReader.Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    resources "/users", UserController, except: [:delete]
   end
 
   # Other scopes may use custom stacks.
