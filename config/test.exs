@@ -13,7 +13,7 @@ config :logger, level: :warn
 config :ff_reader, FfReader.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: "password",
   database: "ff_reader_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
