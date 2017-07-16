@@ -1,14 +1,13 @@
 defmodule FfReader.Web.SessionController do
   use FfReader.Web, :controller
-
-  alias FfReader.Accounts
+  import FfReader.Web.Auth.Login
 
   def new(conn, _params) do
     render conn, "new.html"
   end
 
   def create(conn, %{"session" => %{"email" => user, "password" => pass}}) do
-    case Accounts.login_by_email_and_pass(conn, user, pass) do
+    case login_by_email_and_pass(conn, user, pass) do
       {:ok, conn} ->
         logged_in_user = Guardian.Plug.current_resource(conn)
         conn

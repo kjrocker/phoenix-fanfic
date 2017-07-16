@@ -1,6 +1,6 @@
-defmodule FfReader.Web.AuthHelper do
+defmodule FfReader.Web.Auth.Helpers do
   def current_user(conn) do
-    Guardian.Plug.current_resource(conn)
+    conn.assigns[:current_user]
   end
 
   def logged_in?(conn) do

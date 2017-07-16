@@ -23,7 +23,7 @@ defmodule FfReader.Web do
       import FfReader.Web.Router.Helpers
       import FfReader.Web.Gettext
 
-      import FfReader.Web.AuthHelper
+      import FfReader.Web.Auth.Helpers
     end
   end
 
@@ -42,7 +42,7 @@ defmodule FfReader.Web do
       import FfReader.Web.ErrorHelpers
       import FfReader.Web.Gettext
 
-      import FfReader.Web.AuthHelper
+      import FfReader.Web.Auth.Helpers
     end
   end
 

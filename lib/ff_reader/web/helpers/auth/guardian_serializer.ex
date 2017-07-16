@@ -1,4 +1,4 @@
-defmodule FfReader.GuardianSerializer do
+defmodule FfReader.Web.Auth.GuardianSerializer do
   @behaviour Guardian.Serializer
 
   alias FfReader.Accounts

@@ -1,6 +1,7 @@
 defmodule FfReader.Web.UserController do
   use FfReader.Web, :controller
   alias FfReader.Accounts
+  import FfReader.Web.Auth.Login
 
   def index(conn, _params) do
     users = Accounts.list_users
@@ -16,7 +17,7 @@ defmodule FfReader.Web.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         conn
-        |> Accounts.login(user)
+        |> login(user)
         |> put_flash(:info, "User created successfully")
         |> redirect(to: user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->

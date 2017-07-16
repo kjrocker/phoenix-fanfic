@@ -17,7 +17,7 @@ defmodule FfReader.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {FfReader.Application, []},
-     extra_applications: [:logger, :runtime_tools, :comeonin]]
+     extra_applications: [:logger, :runtime_tools, :comeonin, :ex_machina]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,9 @@ defmodule FfReader.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:guardian, "~> 0.14"},
-      {:comeonin, "~> 3.2"}
+      {:comeonin, "~> 3.2"},
+      {:canary, "~> 1.1.1"},
+      {:ex_machina, "~> 2.0"}
     ]
   end
 

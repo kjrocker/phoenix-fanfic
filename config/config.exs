@@ -30,7 +30,12 @@ config :guardian, Guardian,
   allowed_drift: 2000,
   verify_issuer: true, # optional
   secret_key: "3wrvyle6KH6S8y77mH5i2FyIk6/benHEpsZmam4ilM/LNQNZZXkCptMTb00RTFUA",
-  serializer: FfReader.GuardianSerializer
+  serializer: FfReader.Web.Auth.GuardianSerializer
+
+config :canary,
+  repo: FfReader.Repo,
+  unauthorized_handler: {FfReader.Web.Auth.Canary, :handle_unauthorized},
+  not_found_handler: {FfReader.Web.Auth.Canary, :handle_not_found}
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

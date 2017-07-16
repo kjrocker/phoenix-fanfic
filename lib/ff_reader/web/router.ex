@@ -1,5 +1,6 @@
 defmodule FfReader.Web.Router do
   use FfReader.Web, :router
+  alias FfReader.Web.Auth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,10 +12,10 @@ defmodule FfReader.Web.Router do
     plug Guardian.Plug.LoadResource
   end
 
-  pipeline :browser_auth do
-    plug Guardian.Plug.VerifySession
-    plug Guardian.Plug.EnsureAuthenticated, handler: FfReader.Accounts.Token
-    plug Guardian.Plug.LoadResource
+  pipeline :protected do
+    plug Guardian.Plug.EnsureAuthenticated, handler: Auth.GuardianHandler
+    plug Guardian.Plug.EnsureResource, handler: Auth.GuardianHandler
+    plug Auth.CurrentUser
   end
 
   pipeline :api do
@@ -25,13 +26,13 @@ defmodule FfReader.Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/users", UserController, except: [:update, :delete]
+    resources "/users", UserController, only: [:show, :index, :new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
   scope "/", FfReader.Web do
-    pipe_through [:browser, :browser_auth]
-    resources "/users", UserController, except: [:new, :create, :delete]
+    pipe_through [:browser, :protected]
+    resources "/users", UserWriteController, only: [:edit, :update, :delete]
   end
 
   # Other scopes may use custom stacks.

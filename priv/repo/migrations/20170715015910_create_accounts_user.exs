@@ -8,5 +8,7 @@ defmodule FfReader.Repo.Migrations.CreateFfReader.Accounts.User do
 
       timestamps()
     end
+
+    create unique_index(:accounts_users, [:email])
   end
 end
