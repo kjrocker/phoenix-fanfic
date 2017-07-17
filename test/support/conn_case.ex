@@ -20,6 +20,7 @@ defmodule FfReader.Web.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import FfReader.Web.Router.Helpers
+      import FfReader.Factory
 
       # The default endpoint for testing
       @endpoint FfReader.Web.Endpoint

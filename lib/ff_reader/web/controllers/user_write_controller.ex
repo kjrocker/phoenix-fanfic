@@ -2,6 +2,9 @@ defmodule FfReader.Web.UserWriteController do
   use FfReader.Web, :controller
   alias FfReader.Accounts
 
+  plug :put_view, FfReader.Web.UserView
+  plug :authorize_resource, model: Accounts.User
+
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     changeset = Accounts.change_user(user)

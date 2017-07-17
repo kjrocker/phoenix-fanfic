@@ -22,6 +22,7 @@ defmodule FfReader.Web do
       import Plug.Conn
       import FfReader.Web.Router.Helpers
       import FfReader.Web.Gettext
+      import Canary.Plugs
 
       import FfReader.Web.Auth.Helpers
     end
