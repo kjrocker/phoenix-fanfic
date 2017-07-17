@@ -23,16 +23,18 @@ defmodule FfReader.Web.Router do
   end
 
   scope "/", FfReader.Web do
+    pipe_through [:browser, :protected]
+    resources "/users", UserWriteController, only: [:edit, :update, :delete]
+    resources "/stories", StoryChangeController, except: [:show, :index]
+  end
+
+  scope "/", FfReader.Web do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
     resources "/users", UserController, only: [:show, :index, :new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-  end
-
-  scope "/", FfReader.Web do
-    pipe_through [:browser, :protected]
-    resources "/users", UserWriteController, only: [:edit, :update, :delete]
+    resources "/stories", StoryController, only: [:show, :index]
   end
 
   # Other scopes may use custom stacks.

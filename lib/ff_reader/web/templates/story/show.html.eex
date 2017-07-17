@@ -1,0 +1,18 @@
+<h2>Show Story</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @story.title %>
+  </li>
+
+  <li>
+    <strong>Summary:</strong>
+    <%= @story.summary %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: story_change_path(@conn, :edit, @story) %></span>
+<span><%= link "Back", to: story_path(@conn, :index) %></span>

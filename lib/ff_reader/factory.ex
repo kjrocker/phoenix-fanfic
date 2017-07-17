@@ -6,4 +6,12 @@ defmodule FfReader.Factory do
       email: sequence(:email, &"email-#{&1}@example.com")
     }
   end
+
+  def story_factory do
+    %FfReader.Fiction.Story{
+      title: "The Generic of Male Lead",
+      summary: "A tale of heroism, harems, and other such nonsense",
+      author: build(:user)
+    }
+  end
 end

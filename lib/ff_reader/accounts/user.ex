@@ -9,6 +9,8 @@ defmodule FfReader.Accounts.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    has_many :stories, FfReader.Fiction.Story, foreign_key: :author_id
+
     timestamps()
   end
 

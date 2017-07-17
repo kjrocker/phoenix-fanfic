@@ -1,0 +1,6 @@
+<h2>New Story</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: story_change_path(@conn, :create) %>
+
+<span><%= link "Back", to: story_path(@conn, :index) %></span>

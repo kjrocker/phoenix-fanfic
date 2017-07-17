@@ -21,6 +21,7 @@ defmodule FfReader.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+      import FfReader.Factory
       import FfReader.DataCase
     end
   end
