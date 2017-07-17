@@ -1,22 +1,6 @@
 defmodule FfReader.Web.UserWriteControllerTest do
   use FfReader.Web.ConnCase
 
-  defp login_as(conn, user) do
-    conn
-    |> guardian_login(user)
-    |> assign(:current_user, user)
-  end
-
-  def guardian_login(conn, user, token \\ :token, opts \\ []) do
-    conn
-    |> bypass_through(YourApp.Router, [:browser, :browser_authenticated_session])
-    |> get("/")
-    |> Map.update!(:state, fn (_) -> :set end)
-    |> Guardian.Plug.sign_in(user, token, opts)
-    |> send_resp(200, "Flush the session")
-    |> recycle
-  end
-
   describe "unauthenticated" do
     test "GET /users/:id/edit", %{conn: conn} do
       user = insert(:user)
