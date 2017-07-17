@@ -40,7 +40,9 @@ defmodule FfReader.Mixfile do
       {:guardian, "~> 0.14"},
       {:comeonin, "~> 3.2"},
       {:canary, "~> 1.1.1"},
-      {:ex_machina, "~> 2.0"}
+      {:ex_machina, "~> 2.0"},
+      {:html_sanitize_ex, "~> 1.0.0"},
+      {:earmark, "~> 1.2.2"}
     ]
   end
 

@@ -1,6 +1,6 @@
 defimpl Canada.Can, for: FfReader.Accounts.User do
   alias FfReader.Accounts.User
-  alias FfReader.Fiction.Story
+  alias FfReader.Fiction.{Story, Chapter}
 
   def can?(%User{ id: user_id }, action, %User{ id: user_id }), do: true
 

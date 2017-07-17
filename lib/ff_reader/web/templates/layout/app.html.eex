@@ -9,8 +9,8 @@
 
     <title>The Future of Fanfiction</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </head>
-
   <body>
     <div class="ui container">
       <header class="header">
@@ -35,8 +35,8 @@
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
-
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    </div>
+    <%= # render "footer.html", conn: @conn %>
   </body>
+
 </html>

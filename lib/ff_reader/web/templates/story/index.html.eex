@@ -1,28 +1,16 @@
-<h2>Listing Stories</h2>
+<h2>Available Stories</h2>
 
-<table class="ui celled table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Summary</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
 <%= for story <- @stories do %>
-    <tr>
-      <td><%= story.title %></td>
-      <td><%= story.summary %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: story_path(@conn, :show, story), class: "ui button small" %></span>
-        <span><%= link "Edit", to: story_change_path(@conn, :edit, story), class: "ui button small" %></span>
-        <span><%= link "Delete", to: story_change_path(@conn, :delete, story), method: :delete, data: [confirm: "Are you sure?"], class: "ui button small" %></span>
-      </td>
-    </tr>
+  <div class="ui segment">
+    <h2 class="ui header">
+      <%= link story.title, to: story_path(@conn, :show, story) %>
+      <div class="sub header">
+        By: <%= story.author.email %>
+      </div>
+    </h2>
+    <p><%= story.summary %></p>
+    <%= link "Delete", to: story_change_path(@conn, :delete, story), method: :delete, class: "ui button" %>
+  </div>
 <% end %>
-  </tbody>
-</table>
 
-<span><%= link "New Story", to: story_change_path(@conn, :new) %></span>
+<span><%= link "New Story", to: story_change_path(@conn, :new), class: "ui primary button fluid" %></span>

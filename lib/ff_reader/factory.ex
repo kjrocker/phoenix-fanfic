@@ -11,7 +11,16 @@ defmodule FfReader.Factory do
     %FfReader.Fiction.Story{
       title: "The Generic of Male Lead",
       summary: "A tale of heroism, harems, and other such nonsense",
-      author: build(:user)
+      author: build(:user),
+    }
+  end
+
+  def chapter_factory do
+    %FfReader.Fiction.Chapter{
+      title: "Magnificent Chapter Title",
+      raw: "Normal Speech\n\n__Demon Speech__",
+      number: 1,
+      story: build(:story)
     }
   end
 end

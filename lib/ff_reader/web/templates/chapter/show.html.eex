@@ -1,0 +1,5 @@
+<%= raw @chapter.body %>
+
+<%= @chapter.number %>
+
+<%= link "Edit", to: chapter_path(@conn, :edit, @chapter) %>

@@ -1,0 +1,13 @@
+<div class="ui center aligned container">
+  <%= link "<<", to: "/stories/#{@story.id}/1", class: "ui button" %>
+  <%= link "<", to: "/stories/#{@story.id}/#{@chapter.number - 1}", class: "ui button" %>
+  <select class="ui dropdown">
+    <%= for chapter <- @story.chapters do %>
+      <option <%= current_chapter(chapter, @chapter) %> value="<%= chapter.number %>">
+        <%= chapter.title %>
+      </option>
+    <% end %>
+  </select>
+  <%= link ">", to: "/stories/#{@story.id}/#{@chapter.number + 1}", class: "ui button" %>
+  <%= link ">>", to: "/stories/#{@story.id}/1", class: "ui button" %>
+</div>

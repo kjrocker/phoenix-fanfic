@@ -7,7 +7,9 @@ defmodule FfReader.Web.StoryChangeController do
   plug :put_view, FfReader.Web.StoryView
 
   def new(conn, _params) do
-    changeset = Fiction.change_story(%FfReader.Fiction.Story{})
+    changeset = Fiction.change_story(%FfReader.Fiction.Story{
+      chapters: [ %Fiction.Chapter{} ]
+    })
     render(conn, "new.html", changeset: changeset)
   end
 

@@ -6,7 +6,7 @@ defmodule FfReader.Web.StoryControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, story_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing Stories"
+    assert html_response(conn, 200) =~ "Available Stories"
   end
 
   describe "unauthenticated" do

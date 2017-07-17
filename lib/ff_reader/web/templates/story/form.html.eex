@@ -17,6 +17,22 @@
     <%= error_tag f, :summary %>
   </div>
 
+  <%= inputs_for f, :chapters, fn c -> %>
+    <%= hidden_input c, :number, value: 1 %>
+
+    <div class="field">
+      <%= label c, :title %>
+      <%= text_input c, :title %>
+      <%= error_tag c, :title %>
+    </div>
+
+    <div class="field">
+      <%= label c, :raw %>
+      <%= textarea c, :raw %>
+      <%= error_tag c, :raw %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= submit "Submit", class: "ui primary button fluid" %>
   </div>

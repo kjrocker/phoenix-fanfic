@@ -8,52 +8,23 @@ defmodule FfReader.Web.StoryController do
     render(conn, "index.html", stories: stories)
   end
 
-  def new(conn, _params) do
-    changeset = Fiction.change_story(%FfReader.Fiction.Story{})
-    render(conn, "new.html", changeset: changeset)
-  end
-
-  def create(conn, %{"story" => story_params}) do
-    case Fiction.create_story(story_params) do
-      {:ok, story} ->
+  # Show the specific chapter, otherwise redirect to first chapter
+  def show(conn, %{"id" => id, "num" => num} = params) do
+    story = Fiction.get_story!(id)
+    case Fiction.get_n_chapter(id, num) do
+      %Fiction.Chapter{} = chapter ->
+        render(conn, "show.html", story: story, chapter: chapter)
+      nil ->
         conn
-        |> put_flash(:info, "Story created successfully.")
+        |> put_flash(:error, "Requested chapter not found")
         |> redirect(to: story_path(conn, :show, story))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  # Without a chapter number, use the first one
+  def show(conn, %{"id" => id} = params) do
     story = Fiction.get_story!(id)
-    render(conn, "show.html", story: story)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    story = Fiction.get_story!(id)
-    changeset = Fiction.change_story(story)
-    render(conn, "edit.html", story: story, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "story" => story_params}) do
-    story = Fiction.get_story!(id)
-
-    case Fiction.update_story(story, story_params) do
-      {:ok, story} ->
-        conn
-        |> put_flash(:info, "Story updated successfully.")
-        |> redirect(to: story_path(conn, :show, story))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", story: story, changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    story = Fiction.get_story!(id)
-    {:ok, _story} = Fiction.delete_story(story)
-
-    conn
-    |> put_flash(:info, "Story deleted successfully.")
-    |> redirect(to: story_path(conn, :index))
+    chapter = Fiction.get_first_chapter(id)
+    render(conn, "show.html", story: story, chapter: chapter)
   end
 end

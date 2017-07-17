@@ -1,18 +1,17 @@
-<h2>Show Story</h2>
-
-<ul>
-
-  <li>
-    <strong>Title:</strong>
+<div class="ui segment">
+  <h2 class="ui header">
     <%= @story.title %>
-  </li>
+    <div class="sub header">
+      By: <%= @story.author.email %>
+    </div>
+  </h2>
+  <p><%= @story.summary %></p>
+</div>
 
-  <li>
-    <strong>Summary:</strong>
-    <%= @story.summary %>
-  </li>
+<%= render "chapter_navigation.html", story: @story, chapter: @chapter %>
 
-</ul>
+<div class="ui container text">
+  <%= raw @chapter.body %>
+</div>
 
-<span><%= link "Edit", to: story_change_path(@conn, :edit, @story) %></span>
-<span><%= link "Back", to: story_path(@conn, :index) %></span>
+<%= render "chapter_navigation.html", story: @story, chapter: @chapter %>
