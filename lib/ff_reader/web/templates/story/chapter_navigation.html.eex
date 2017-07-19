@@ -1,13 +1,19 @@
 <div class="ui center aligned container">
-  <%= link "<<", to: "/stories/#{@story.id}/1", class: "ui button" %>
-  <%= link "<", to: "/stories/#{@story.id}/#{@chapter.number - 1}", class: "ui button" %>
+  <%= link "<<", to: "/stories/#{@story.id}/", class: "ui button" %>
+  <%= link "<", to: prev_chapter_url(@story, @chapter), class: "ui button" %>
   <select class="ui dropdown">
     <%= for chapter <- @story.chapters do %>
-      <option <%= current_chapter(chapter, @chapter) %> value="<%= chapter.number %>">
-        <%= chapter.title %>
-      </option>
+      <%= if current_chapter(chapter, @chapter) do %>
+        <option selected value="<%= chapter.number %>">
+          <%= chapter.title %>
+        </option>
+      <% else %>
+        <option value="<%= chapter.number %>">
+          <%= chapter.title %>
+        </option>
+      <% end %>
     <% end %>
   </select>
-  <%= link ">", to: "/stories/#{@story.id}/#{@chapter.number + 1}", class: "ui button" %>
-  <%= link ">>", to: "/stories/#{@story.id}/1", class: "ui button" %>
+  <%= link ">", to: next_chapter_url(@story, @chapter), class: "ui button" %>
+  <%= link ">>", to: "/stories/#{@story.id}/#{@story.chapter_count}", class: "ui button" %>
 </div>

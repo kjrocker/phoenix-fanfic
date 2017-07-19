@@ -7,6 +7,7 @@ defmodule FfReader.Fiction.Story do
   schema "fiction_stories" do
     field :summary, :string
     field :title, :string
+    field :chapter_count, :integer, virtual: true
     belongs_to :author, FfReader.Accounts.User
     has_many :chapters, FfReader.Fiction.Chapter
 

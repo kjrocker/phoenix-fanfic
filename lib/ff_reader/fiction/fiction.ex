@@ -15,6 +15,13 @@ defmodule FfReader.Fiction do
     |> Repo.one
   end
 
+  def get_last_chapter(id) do
+    Chapter
+    |> where(story_id: ^id)
+    |> last(:number)
+    |> Repo.one
+  end
+
   def get_n_chapter(id, num) do
     Chapter
     |> where([story_id: ^id, number: ^num])
@@ -23,8 +30,16 @@ defmodule FfReader.Fiction do
 
   def list_stories do
     Story
+    |> with_chapter_count
     |> preload(:author)
     |> Repo.all
+  end
+
+  def with_chapter_count(query \\ Story) do
+    query
+    |> join(:left, [s], c in assoc(s, :chapters))
+    |> group_by([s, _], s.id)
+    |> select([s, c], %{s | chapter_count: count(c.id)})
   end
 
   @doc """
@@ -43,6 +58,7 @@ defmodule FfReader.Fiction do
   """
   def get_story!(id) do
     Story
+    |> with_chapter_count
     |> preload(:author)
     |> preload(chapters: ^from(c in Chapter, order_by: c.number))
     |> Repo.get!(id)

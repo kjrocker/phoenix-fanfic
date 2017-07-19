@@ -12,7 +12,7 @@ defmodule FfReader.FictionTest do
 
     test "list_stories/0 returns all stories" do
       story = insert(:story)
-      assert Fiction.list_stories() == [story]
+      assert Fiction.list_stories() == [%{story | chapter_count: 0}]
     end
 
     test "get_story!/1 returns the story with given id" do
@@ -62,7 +62,6 @@ defmodule FfReader.FictionTest do
   describe "chapters" do
     alias FfReader.Fiction.Chapter
 
-    @valid_attrs %{body: "some body", number: 42, raw: "some raw", title: "some title"}
     @update_attrs %{number: 43, raw: "some updated raw", title: "some updated title"}
     @invalid_attrs %{body: nil, number: nil, raw: nil, title: nil}
 

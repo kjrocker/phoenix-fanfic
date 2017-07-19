@@ -14,11 +14,11 @@
   <body>
     <div class="ui container">
       <header class="header">
-        <div class="ui menu">
+        <div class="ui stackable menu">
           <a class="item" href="/">Home</a>
           <a class="item" href="/users">Authors</a>
           <a class="item" href="/stories">Stories</a>
-          <div class="right menu">
+          <div class="right stackable menu">
             <%= render "sign_in_sign_out.html", conn: @conn %>
           </div>
         </div>

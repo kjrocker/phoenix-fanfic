@@ -1,9 +1,6 @@
 defmodule FfReader.Web.StoryControllerTest do
   use FfReader.Web.ConnCase
 
-  @update_attrs %{summary: "some updated summary", title: "some updated title"}
-  @invalid_attrs %{summary: nil, title: nil}
-
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, story_path(conn, :index)
     assert html_response(conn, 200) =~ "Available Stories"

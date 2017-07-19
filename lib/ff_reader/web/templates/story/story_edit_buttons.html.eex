@@ -1,0 +1,5 @@
+<div class="ui right floated buttons">
+  <%= link "Edit", to: story_change_path(@conn, :edit, @story), class: "ui primary attached button"%>
+  <%= link "Delete", to: story_change_path(@conn, :delete, @story), method: :delete,
+      data: [confirm: "Are you sure about this?"], class: "ui negative attached button"%>
+</div>

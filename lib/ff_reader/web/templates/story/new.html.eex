@@ -1,45 +1,5 @@
 <h2>New Story</h2>
 
-<%= form_for @changeset, story_change_path(@conn, :create), [class: "ui form"], fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="ui error message">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= label f, :title %>
-    <%= text_input f, :title %>
-    <%= error_tag f, :title %>
-  </div>
-
-  <div class="field">
-    <%= label f, :summary %>
-    <%= textarea f, :summary, [rows: 2] %>
-    <%= error_tag f, :summary %>
-  </div>
-
-  <h3>First Chapter</h3>
-  <%= inputs_for f, :chapters, fn c -> %>
-    <%= hidden_input c, :number, value: 1 %>
-
-    <div class="field">
-      <%= label c, :title, "Chapter Title" %>
-      <%= text_input c, :title %>
-      <%= error_tag c, :title %>
-    </div>
-
-    <div class="field">
-      <%= label c, :raw, "Markdown Text" %>
-      <%= textarea c, :raw %>
-      <%= error_tag c, :raw %>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= submit "Submit", class: "ui primary button fluid" %>
-  </div>
-<% end %>
-
+<%= render "form.html", changeset: @changeset, action: story_change_path(@conn, :create) %>
 
 <span><%= link "Back", to: story_path(@conn, :index) %></span>
