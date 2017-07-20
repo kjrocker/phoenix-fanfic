@@ -1,19 +1,19 @@
-<div class="ui center aligned container">
-  <%= link "<<", to: "/stories/#{@story.id}/", class: "ui button" %>
-  <%= link "<", to: prev_chapter_url(@story, @chapter), class: "ui button" %>
-  <select class="ui dropdown">
-    <%= for chapter <- @story.chapters do %>
-      <%= if current_chapter(chapter, @chapter) do %>
-        <option selected value="<%= chapter.number %>">
-          <%= chapter.title %>
-        </option>
-      <% else %>
-        <option value="<%= chapter.number %>">
-          <%= chapter.title %>
-        </option>
+<div class="text-center chapter-nav button-group">
+  <%= link "<<", to: "/stories/#{@story.id}/", class: "btn btn-default" %>
+  <%= link "<", to: prev_chapter_url(@story, @chapter), class: "btn btn-default" %>
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button"
+            id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+      <%= @chapter.title %>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <%= for chapter <- @story.chapters do %>
+        <li><%= link chapter.title, to: "/stories/#{@story.id}/#{chapter.number}" %></li>
       <% end %>
-    <% end %>
-  </select>
-  <%= link ">", to: next_chapter_url(@story, @chapter), class: "ui button" %>
-  <%= link ">>", to: "/stories/#{@story.id}/#{@story.chapter_count}", class: "ui button" %>
+    </ul>
+  </div>
+  <%= link ">", to: next_chapter_url(@story, @chapter), class: "btn btn-default" %>
+  <%= link ">>", to: "/stories/#{@story.id}/#{@story.chapter_count}", class: "btn btn-default" %>
 </div>

@@ -1,8 +1,7 @@
 <%= if logged_in?(@conn) do %>
-  <%= link "My Profile", to: user_path(@conn, :show, current_user(@conn)), class: "item" %>
-  <%= link "Edit Profile", to: user_write_path(@conn, :edit, current_user(@conn)), class: "item" %>
-  <%= link "Logout", to: session_path(@conn, :delete, :access), method: :delete, class: "item" %><br>
+  <li><%= link current_user(@conn).email, to: user_path(@conn, :show, current_user(@conn)), class: "navbar-brand" %></li>
+  <li><%= link "Logout", to: session_path(@conn, :delete, :access), method: :delete, class: "navbar-brand" %></li>
 <% else %>
-  <%= link "Register", to: user_path(@conn, :new), class: "item" %>
-  <%= link "Login", to: session_path(@conn, :new), class: "item" %>
+  <li><%= link "Register", to: user_path(@conn, :new), class: "navbar-brand" %></li>
+  <li><%= link "Login", to: session_path(@conn, :new), class: "navbar-brand" %></li>
 <% end %>

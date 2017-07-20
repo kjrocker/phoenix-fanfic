@@ -1,29 +1,25 @@
-<%= form_for @changeset, @action, [as: :chapter, class: "ui form"], fn f -> %>
+<%= form_for @changeset, @action, [as: :chapter], fn f -> %>
   <%= if @changeset.action do %>
     <div class="ui error message">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
 
-  <div class="field">
+  <%= hidden_input f, :number, value: (@story.chapter_count + 1) %>
+
+  <div class="form-group">
     <%= label f, :title %>
-    <%= text_input f, :title %>
+    <%= text_input f, :title, class: "form-control" %>
     <%= error_tag f, :title %>
   </div>
 
-  <div class="field">
-    <%= label f, :number %>
-    <%= number_input f, :number %>
-    <%= error_tag f, :number %>
-  </div>
-
-  <div class="field">
-    <%= label f, :raw %>
-    <%= textarea f, :raw %>
+  <div class="form-group">
+    <%= label f, :raw, "Markdown Text" %>
+    <%= textarea f, :raw, class: "form-control", rows: 20 %>
     <%= error_tag f, :raw %>
   </div>
 
-  <div class="field">
-    <%= submit "Submit", class: "ui primary button fluid" %>
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-block btn-primary" %>
   </div>
 <% end %>

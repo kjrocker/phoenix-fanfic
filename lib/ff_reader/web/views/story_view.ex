@@ -16,4 +16,14 @@ defmodule FfReader.Web.StoryView do
   def prev_chapter_url(story, chapter) do
     "/stories/#{story.id}/#{max(1, chapter.number - 1)}"
   end
+
+  def guarenteed_chapter(%FfReader.Fiction.Chapter{} = chapter), do: chapter
+
+  def guarenteed_chapter(nil) do
+    %{
+      number: 1,
+      title: "Empty Chapter!",
+      body: "<p style=\"text-align: center;\">There's no chapter here!</p>"
+    }
+  end
 end

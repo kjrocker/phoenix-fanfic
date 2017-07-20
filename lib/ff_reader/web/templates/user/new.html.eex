@@ -1,10 +1,10 @@
-<h1>New user</h1>
+<h1>Register Account</h1>
 <%= form_for @changeset, user_path(@conn, :create), [class: "ui form"], fn f -> %>
-  <div class="field">
-    <%= text_input f, :email, placeholder: "Email" %>
+  <div class="form-group">
+    <%= text_input f, :email, placeholder: "Email", class: "form-control" %>
   </div>
-  <div class="field">
-    <%= password_input f, :password, placeholder: "Password" %>
+  <div class="form-group">
+    <%= password_input f, :password, placeholder: "Password", class: "form-control" %>
   </div>
-  <%= submit "Register User", class: "ui primary button fluid" %>
+  <%= submit "Register User", class: "btn btn-block btn-primary" %>
 <% end %>

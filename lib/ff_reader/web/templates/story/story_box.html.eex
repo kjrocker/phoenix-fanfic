@@ -1,0 +1,18 @@
+<div class="panel panel-default story-box">
+  <div class="panel-body">
+    <%= if logged_in?(@conn) && story_owner(@conn, @story.author) do %>
+      <div class="pull-right">
+        <%= link "Edit", to: story_change_path(@conn, :edit, @story), class: "btn btn-primary"%>
+        <%= link "Delete", to: story_change_path(@conn, :delete, @story), method: :delete,
+            data: [confirm: "Are you sure about this?"], class: "btn btn-danger"%>
+      </div>
+    <% end %>
+    <h3>
+      <%= link @story.title, to: story_path(@conn, :show, @story) %>
+      <small>
+        By: <%= @story.author.email %>
+      </small>
+    </h3>
+    <p><%= @story.summary %></p>
+  </div>
+</div>

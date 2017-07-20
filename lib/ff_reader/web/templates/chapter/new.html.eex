@@ -1,6 +1,6 @@
 <h2>New Chapter</h2>
 
-<%= render "form.html", changeset: @changeset,
+<%= render "form.html", changeset: @changeset, story: @story,
                         action: story_change_chapter_path(@conn, :create, @story) %>
 
-<span><%= link "Back", to: story_path(@conn, :index) %></span>
+<span><%= link "Back", to: story_change_path(@conn, :edit, @story) %></span>

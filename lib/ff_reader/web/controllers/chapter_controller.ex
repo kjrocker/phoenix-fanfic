@@ -8,8 +8,9 @@ defmodule FfReader.Web.ChapterController do
 
   def edit(conn, %{"id" => id}) do
     chapter = Fiction.get_chapter!(id)
+    story = Fiction.get_story!(chapter.story_id)
     changeset = Fiction.change_chapter(chapter)
-    render(conn, "edit.html", story: chapter.story, chapter: chapter, changeset: changeset)
+    render(conn, "edit.html", story: chapter.story, chapter: chapter, changeset: changeset, story: story)
   end
 
   def new(conn, %{"story_change_id" => story_id}) do

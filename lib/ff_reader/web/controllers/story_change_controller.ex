@@ -19,7 +19,7 @@ defmodule FfReader.Web.StoryChangeController do
       {:ok, story} ->
         conn
         |> put_flash(:info, "Story created successfully.")
-        |> redirect(to: story_path(conn, :show, story))
+        |> redirect(to: story_change_chapter_path(conn, :new, story))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_flash(:error, "Story creation failed")

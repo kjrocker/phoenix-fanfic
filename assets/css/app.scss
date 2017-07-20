@@ -1,0 +1,64 @@
+/* This file is for your main application css. */
+
+@import "bootstrap";
+
+$navbar-height: 50px;
+$footer-height: 50px;
+$chapter-nav-padding: 10px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-top: $navbar-height;
+  margin-bottom: $footer-height;
+}
+
+.navbar-brand {
+  height: $navbar-height;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  background-color: #f8f8f8;
+  p {
+    margin: 15px;
+  }
+}
+
+.text {
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  max-width: 700px !important;
+  line-height: 1.5;
+}
+
+
+.chapter-nav {
+  padding-top: $chapter-nav-padding;
+  padding-bottom: $chapter-nav-padding;
+  .dropdown {
+    display: inline;
+    .caret {
+      margin-left: 5px;
+    }
+  }
+}
+
+form.link {
+  display: inline;
+}
+
+.story-box {
+  .panel-body {
+    padding: 12px;
+  }
+  h1, h2, h3, h4 {
+    margin-top: 10px;
+  }
+}

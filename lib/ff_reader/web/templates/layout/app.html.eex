@@ -7,36 +7,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>The Future of Fanfiction</title>
+    <title>Fanfic for Tinkerers</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <div class="ui container">
-      <header class="header">
-        <div class="ui stackable menu">
-          <a class="item" href="/">Home</a>
-          <a class="item" href="/users">Authors</a>
-          <a class="item" href="/stories">Stories</a>
-          <div class="right stackable menu">
-            <%= render "sign_in_sign_out.html", conn: @conn %>
-          </div>
-        </div>
-      </header>
-
-      <%= if get_flash(@conn, :info) do %>
-        <p class="ui info message"><%= get_flash(@conn, :info) %></p>
-      <%= end %>
-
-      <%= if get_flash(@conn, :error) do %>
-        <p class="ui error message"><%= get_flash(@conn, :error) %></p>
-      <%= end %>
+    <%= render "navbar.html", conn: @conn %>
+    <div class="container">
+      <%= for flash <- flashes() do %>
+        <%= if get_flash(@conn, flash.name) do %>
+          <p class="alert <%= flash.class %>"><%= get_flash(@conn, flash.name) %></p>
+        <%= end %>
+      <% end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
     </div>
-    <%= # render "footer.html", conn: @conn %>
+    <%= render "footer.html", conn: @conn %>
   </body>
-
 </html>

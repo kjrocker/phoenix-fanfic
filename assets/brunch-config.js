@@ -2,13 +2,7 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js",
-      order: {
-        before: [
-          "vendor/jquery-3.2.1.min.js",
-          "vendor/semantic.min.js"
-        ]
-      }
+      joinTo: "js/app.js"
 
       // To use a separate vendor.js bundle, specify two files path
       // https://github.com/brunch/brunch/blob/master/docs/config.md#files
@@ -27,7 +21,10 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: "css/app.css",
+      order: {
+        after: ["css/app.scss"]
+      }
     },
     templates: {
       joinTo: "js/app.js"
@@ -54,6 +51,15 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
+    },
+    copycat: {
+      "fonts": ["node_modules/bootstrap-sass/assets/fonts/bootstrap"]
+    },
+    sass: {
+      options: {
+        includePaths: ["node_modules/bootstrap-sass/assets/stylesheets"],
+        precision: 8
+      }
     }
   },
 
@@ -64,6 +70,11 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    globals: {
+      $: 'jquery',
+      jQuery: 'jquery',
+      bootstrap: 'bootstrap-sass'
+    }
   }
 };

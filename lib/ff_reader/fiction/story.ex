@@ -2,14 +2,15 @@ defmodule FfReader.Fiction.Story do
   use Ecto.Schema
   import Ecto.Changeset
   alias FfReader.Fiction.Story
+  alias FfReader.{Accounts, Fiction}
 
 
   schema "fiction_stories" do
     field :summary, :string
     field :title, :string
     field :chapter_count, :integer, virtual: true
-    belongs_to :author, FfReader.Accounts.User
-    has_many :chapters, FfReader.Fiction.Chapter
+    belongs_to :author, Accounts.User
+    has_many :chapters, Fiction.Chapter
 
     timestamps()
   end

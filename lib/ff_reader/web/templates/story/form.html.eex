@@ -5,37 +5,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= label f, :title %>
-    <%= text_input f, :title %>
+    <%= text_input f, :title, class: "form-control" %>
     <%= error_tag f, :title %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= label f, :summary %>
-    <%= textarea f, :summary, rows: 2 %>
+    <%= textarea f, :summary, rows: 4, maxlength: 250, class: "form-control" %>
     <%= error_tag f, :summary %>
   </div>
 
-  <%= inputs_for f, :chapters, fn c -> %>
-    <hr>
-    <h3>Chapter <%= c.data.number %></h3>
-    <%= hidden_input c, :number %>
-
-    <div class="field">
-      <%= label c, :title, "Chapter Title" %>
-      <%= text_input c, :title %>
-      <%= error_tag c, :title %>
-    </div>
-
-    <div class="field">
-      <%= label c, :raw, "Markdown Text" %>
-      <%= textarea c, :raw %>
-      <%= error_tag c, :raw %>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= submit "Submit", class: "ui primary button fluid" %>
+  <div class="">
+    <%= submit "Submit", class: "btn btn-block btn-primary" %>
   </div>
 <% end %>

@@ -1,20 +1,9 @@
 <h2>Available Stories</h2>
 
-<%= for story <- @stories do %>
-  <div class="ui segment">
-    <h2 class="ui header">
-      <%= link story.title, to: story_path(@conn, :show, story) %>
+<div class="panel-group">
+  <%= for story <- @stories do %>
+    <%= render "story_box.html", conn: @conn, story: story %>
+  <% end %>
+</div>
 
-      <%= if logged_in?(@conn) && story_owner(@conn, story.author) do %>
-        <%= render "story_edit_buttons.html", conn: @conn, story: story %>
-      <% end %>
-
-      <div class="sub header">
-        By: <%= story.author.email %>
-      </div>
-    </h2>
-    <p><%= story.summary %></p>
-  </div>
-<% end %>
-
-<span><%= link "New Story", to: story_change_path(@conn, :new), class: "ui primary button fluid" %></span>
+<span><%= link "New Story", to: story_change_path(@conn, :new), class: "btn btn-block btn-primary" %></span>

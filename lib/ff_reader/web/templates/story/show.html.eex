@@ -1,17 +1,12 @@
-<div class="ui segment">
-  <h2 class="ui header">
-    <%= @story.title %>
-    <div class="sub header">
-      By: <%= @story.author.email %>
-    </div>
-  </h2>
-  <p><%= @story.summary %></p>
+<br />
+<% chapter = guarenteed_chapter(@chapter) %>
+
+<%= render "story_box.html", conn: @conn, story: @story %>
+
+<%= render "chapter_navigation.html", story: @story, chapter: chapter %>
+
+<div class="container text">
+  <%= raw chapter.body %>
 </div>
 
-<%= render "chapter_navigation.html", story: @story, chapter: @chapter %>
-
-<div class="ui container text">
-  <%= raw @chapter.body %>
-</div>
-
-<%= render "chapter_navigation.html", story: @story, chapter: @chapter %>
+<%= render "chapter_navigation.html", story: @story, chapter: chapter %>

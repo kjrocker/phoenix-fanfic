@@ -1,7 +1,7 @@
 defmodule FfReader.Fiction.Chapter do
   use Ecto.Schema
   import Ecto.Changeset
-  alias FfReader.Fiction.Chapter
+  alias FfReader.Fiction.{Chapter, Story}
 
 
   schema "fiction_chapters" do
@@ -9,7 +9,7 @@ defmodule FfReader.Fiction.Chapter do
     field :number, :integer
     field :raw, :string
     field :title, :string
-    belongs_to :story, FfReader.Fiction.Story
+    belongs_to :story, Story
 
     timestamps()
   end
