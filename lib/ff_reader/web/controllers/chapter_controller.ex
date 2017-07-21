@@ -36,12 +36,12 @@ defmodule FfReader.Web.ChapterController do
 
   def update(conn, %{"id" => id, "chapter" => chapter_params}) do
     chapter = Fiction.get_chapter!(id)
-
+    story = Fiction.get_story!(chapter.story_id)
     case Fiction.update_chapter(chapter, chapter_params) do
-      {:ok, story} ->
+      {:ok, chapter} ->
         conn
-        |> put_flash(:info, "Story updated successfully.")
-        |> redirect(to: chapter_path(conn, :show, chapter))
+        |> put_flash(:info, "Chapter updated successfully.")
+        |> redirect(to: story_change_path(conn, :edit, story))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_flash(:error, "Errors occured. Beep boop.")
