@@ -12,7 +12,7 @@ defmodule FfReader.FictionTest do
 
     test "list_stories/0 returns all stories" do
       story = insert(:story)
-      assert Fiction.list_stories() == [%{story | chapter_count: 0}]
+      assert Fiction.list_stories() == [story]
     end
 
     test "get_story!/1 returns the story with given id" do
@@ -79,6 +79,15 @@ defmodule FfReader.FictionTest do
       valid_attrs = params_for(:chapter, title: "Chapter Title", story: insert(:story))
       assert {:ok, %Chapter{} = chapter} = Fiction.create_chapter(valid_attrs)
       assert chapter.title == "Chapter Title"
+    end
+
+    test "create_chapter/1 with valid data updates stories chapter_count" do
+      story = insert(:story)
+      story = Fiction.get_story!(story.id)
+      assert Fiction.get_story!(story.id).chapter_count == 0
+      valid_attrs = params_for(:chapter, title: "Chapter Title", story: story)
+      assert {:ok, %Chapter{} = _chapter} = Fiction.create_chapter(valid_attrs)
+      assert Fiction.get_story!(story.id).chapter_count == 1
     end
 
     test "create_chapter/1 with invalid data returns error changeset" do

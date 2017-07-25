@@ -11,6 +11,7 @@ defmodule FfReader.Factory do
     %FfReader.Fiction.Story{
       title: "The Generic of Male Lead",
       summary: "A tale of heroism, harems, and other such nonsense",
+      chapter_count: 0,
       author: build(:user),
     }
   end

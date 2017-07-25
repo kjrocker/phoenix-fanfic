@@ -8,7 +8,7 @@ defmodule FfReader.Fiction.Story do
   schema "fiction_stories" do
     field :summary, :string
     field :title, :string
-    field :chapter_count, :integer, virtual: true
+    field :chapter_count, :integer
     belongs_to :author, Accounts.User
     has_many :chapters, Fiction.Chapter
 
@@ -18,7 +18,7 @@ defmodule FfReader.Fiction.Story do
   @doc false
   def changeset(%Story{} = story, attrs) do
     story
-    |> cast(attrs, [:title, :summary, :author_id])
+    |> cast(attrs, [:title, :summary, :chapter_count, :author_id])
     |> cast_assoc(:chapters)
     |> validate_required([:title, :summary, :author_id])
     |> assoc_constraint(:author)

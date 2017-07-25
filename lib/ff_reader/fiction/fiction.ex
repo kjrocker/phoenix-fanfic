@@ -21,16 +21,8 @@ defmodule FfReader.Fiction do
     |> Repo.one
   end
 
-  def with_chapter_count(query \\ Story) do
-    query
-    |> join(:left, [s], c in assoc(s, :chapters))
-    |> group_by([s, _], s.id)
-    |> select([s, c], %{s | chapter_count: count(c.id)})
-  end
-
   def get_story!(id) do
     Story
-    |> with_chapter_count
     |> preload(chapters: ^from(c in Chapter, order_by: c.number))
     |> preload(:author)
     |> Repo.get!(id)
@@ -38,7 +30,6 @@ defmodule FfReader.Fiction do
 
   def list_stories do
     Story
-    |> with_chapter_count
     |> preload(:author)
     |> Repo.all
   end
@@ -62,9 +53,7 @@ defmodule FfReader.Fiction do
   end
 
   def create_chapter(attrs \\ %{}) do
-    %Chapter{}
-    |> Chapter.changeset(attrs)
-    |> Repo.insert()
+    FfReader.Fiction.Chapter.Transaction.call(attrs, :create)
   end
 
   def update_story(%Story{} = story, attrs) do
@@ -84,7 +73,7 @@ defmodule FfReader.Fiction do
   end
 
   def delete_chapter(%Chapter{} = chapter) do
-    Repo.delete(chapter)
+    FfReader.Fiction.Chapter.Transaction.call(chapter, :delete)
   end
 
   def change_story(%Story{} = story) do

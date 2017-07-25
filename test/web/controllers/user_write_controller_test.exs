@@ -1,6 +1,5 @@
 defmodule FfReader.Web.UserWriteControllerTest do
   use FfReader.Web.ConnCase
-  alias FfReader.Accounts
 
   describe "unauthenticated" do
     test "GET /users/:id/edit", %{conn: conn} do

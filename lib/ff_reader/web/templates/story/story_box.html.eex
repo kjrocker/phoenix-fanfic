@@ -10,9 +10,10 @@
     <h3>
       <%= link @story.title, to: story_path(@conn, :show, @story) %>
       <small>
-        By: <%= @story.author.email %>
+        By: <%= @story.author.username %>
       </small>
     </h3>
     <p><%= @story.summary %></p>
+    <p><%= @story.chapter_count %> Chapters</p>
   </div>
 </div>

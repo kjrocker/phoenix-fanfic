@@ -114,7 +114,7 @@ CREATE TABLE fiction_stories (
     id integer NOT NULL,
     title character varying(255),
     summary text,
-    chapter_count integer,
+    chapter_count integer DEFAULT 0 NOT NULL,
     author_id integer,
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
