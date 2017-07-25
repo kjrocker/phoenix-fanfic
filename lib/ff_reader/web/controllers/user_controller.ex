@@ -17,6 +17,7 @@ defmodule FfReader.Web.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         conn
+        |> send_confirmation(user)
         |> login(user)
         |> put_flash(:info, "User created successfully")
         |> redirect(to: user_path(conn, :show, user))
@@ -30,21 +31,11 @@ defmodule FfReader.Web.UserController do
     render(conn, "show.html", user: user)
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-    changeset = Accounts.change_user(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Accounts.get_user!(id)
-    case Accounts.update_user(user, user_params) do
-      {:ok, user} ->
-        conn
-        |> put_flash(:info, "User updated successfully")
-        |> redirect(to: user_path(conn, :show, user))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset)
-    end
+  defp send_confirmation(conn, user) do
+    token = Phoenix.Token.sign(FfReader.Web.Endpoint, "user", user.id)
+    url = confirmation_url(conn, :edit, token)
+    {:ok, user} = Accounts.request_confirmation(user, token)
+    FfReader.Email.confirmation_email(user, url) |> FfReader.Mailer.deliver_later
+    conn
   end
 end

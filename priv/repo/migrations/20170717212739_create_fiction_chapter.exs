@@ -7,6 +7,7 @@ defmodule FfReader.Repo.Migrations.CreateFfReader.Fiction.Chapter do
       add :raw, :text
       add :body, :text
       add :number, :integer
+      
       add :story_id, references(:fiction_stories, on_delete: :delete_all)
 
       timestamps()

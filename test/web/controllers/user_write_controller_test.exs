@@ -1,5 +1,6 @@
 defmodule FfReader.Web.UserWriteControllerTest do
   use FfReader.Web.ConnCase
+  alias FfReader.Accounts
 
   describe "unauthenticated" do
     test "GET /users/:id/edit", %{conn: conn} do
@@ -53,13 +54,19 @@ defmodule FfReader.Web.UserWriteControllerTest do
 
     test "PUT /users/:id/", %{conn: conn} do
       user = insert(:user)
-      conn = put login_as(conn, user), "/users/#{user.id}", %{"user" => string_params_for(:user)}
+      # IO.inspect user
+      params = string_params_for(:user)
+      # IO.inspect params
+      conn = login_as(conn, user)
+      conn = put login_as(conn, user), "/users/#{user.id}", %{"user" => params}
       assert html_response(conn, 200)
     end
 
     test "PATCH /users/:id/", %{conn: conn} do
       user = insert(:user)
-      conn = patch login_as(conn, user), "/users/#{user.id}", %{"user" => string_params_for(:user)}
+      params = string_params_for(:user)
+      conn = login_as(conn, user)
+      conn = patch conn, "/users/#{user.id}", %{"user" => params}
       assert html_response(conn, 200)
     end
   end

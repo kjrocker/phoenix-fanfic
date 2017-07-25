@@ -1,0 +1,1 @@
+<p><%= link "Confirm Email", to: @url %></p>

@@ -40,7 +40,13 @@ SET default_with_oids = false;
 CREATE TABLE accounts_users (
     id integer NOT NULL,
     email character varying(255),
+    username character varying(255),
     password_hash character varying(255),
+    confirmation_token character varying(255),
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    reset_password_token character varying(255),
+    reset_password_sent_at timestamp without time zone,
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -108,6 +114,7 @@ CREATE TABLE fiction_stories (
     id integer NOT NULL,
     title character varying(255),
     summary text,
+    chapter_count integer,
     author_id integer,
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -204,6 +211,13 @@ CREATE UNIQUE INDEX accounts_users_email_index ON accounts_users USING btree (em
 
 
 --
+-- Name: accounts_users_username_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX accounts_users_username_index ON accounts_users USING btree (username);
+
+
+--
 -- Name: fiction_chapters_story_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -244,5 +258,5 @@ ALTER TABLE ONLY fiction_stories
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20170715015910), (20170715214111), (20170715220200), (20170717172231), (20170717212739);
+INSERT INTO "schema_migrations" (version) VALUES (20170715015910), (20170717172231), (20170717212739);
 

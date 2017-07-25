@@ -14,6 +14,9 @@ config :ff_reader, FfReader.Web.Endpoint,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../assets", __DIR__)]]
 
+config :ff_reader, FfReader.Mailer,
+  adapter: Bamboo.LocalAdapter
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

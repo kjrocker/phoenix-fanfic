@@ -41,10 +41,13 @@ defmodule FfReader.Web.Router do
     resources "/users", UserController, only: [:show, :index, :new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/stories", StoryController, only: [:show, :index]
+    resources "/confirmations", ConfirmationController, only: [:edit]
     get "/stories/:id/:num", StoryController, :show
   end
 
-
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.EmailPreviewPlug
+  end
 
   # Other scopes may use custom stacks.
   # scope "/api", FfReader.Web do

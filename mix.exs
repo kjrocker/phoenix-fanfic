@@ -17,7 +17,7 @@ defmodule FfReader.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {FfReader.Application, []},
-     extra_applications: [:logger, :runtime_tools, :comeonin, :ex_machina]]
+     extra_applications: [:logger, :runtime_tools, :comeonin, :ex_machina, :bamboo]]
   end
 
   # Specifies which paths to compile per environment.
@@ -42,7 +42,8 @@ defmodule FfReader.Mixfile do
       {:canary, "~> 1.1.1"},
       {:ex_machina, "~> 2.0"},
       {:html_sanitize_ex, "~> 1.0.0"},
-      {:earmark, "~> 1.2.2"}
+      {:earmark, "~> 1.2.2"},
+      {:bamboo, "~> 0.8"}
     ]
   end
 
@@ -53,8 +54,9 @@ defmodule FfReader.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+    ["ecto.setup": ["ecto.create", "ecto.load", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
+     "ecto.migrate": ["ecto.migrate", "ecto.dump"],
      "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end

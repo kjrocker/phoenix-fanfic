@@ -12,7 +12,7 @@ defmodule FfReader.Web.Auth.Canary do
     conn
     |> put_flash(:error, "The page you're looking for can't be found!")
     |> put_status(:not_found)
-    |> redirect(to: "/")
+    |> render(FfReader.Web.ErrorView, "404.html")
     |> halt
   end
 end

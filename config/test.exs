@@ -17,3 +17,6 @@ config :ff_reader, FfReader.Repo,
   database: "ff_reader_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :ff_reader, FfReader.Mailer,
+  adapter: Bamboo.TestAdapter

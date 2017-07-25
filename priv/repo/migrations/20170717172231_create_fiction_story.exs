@@ -5,6 +5,8 @@ defmodule FfReader.Repo.Migrations.CreateFfReader.Fiction.Story do
     create table(:fiction_stories) do
       add :title, :string
       add :summary, :text
+      add :chapter_count, :integer
+      
       add :author_id, references(:accounts_users, on_delete: :delete_all)
 
       timestamps()
