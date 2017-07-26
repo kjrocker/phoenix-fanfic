@@ -3,9 +3,9 @@ defmodule FfReader.Web.StoryController do
 
   alias FfReader.Fiction
 
-  def index(conn, _params) do
-    stories = Fiction.list_stories()
-    render(conn, "index.html", stories: stories)
+  def index(conn, params) do
+    {stories, page} = Map.pop(Fiction.list_stories(params), :entries)
+    render(conn, "index.html", stories: stories, page: page)
   end
 
   # Show the specific chapter, otherwise redirect to first chapter

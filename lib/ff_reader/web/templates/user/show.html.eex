@@ -1,1 +1,12 @@
 <h1><%= @user.username %></h1>
+
+<div class="panel-group">
+  <%= for story <- @user.stories do %>
+    <%= render FfReader.Web.StoryView, "story_box.html", conn: @conn,
+        story: story, author: @user, buttons: true %>
+  <% end %>
+</div>
+
+<%= if logged_in?(@conn) && current_user(@conn).id == @user.id do %>
+  <%= link "New Story", to: story_change_path(@conn, :new), class: "btn btn-block btn-primary" %>
+<% end %>

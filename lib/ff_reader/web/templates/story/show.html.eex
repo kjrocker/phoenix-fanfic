@@ -1,7 +1,7 @@
 <br />
 <% chapter = guarenteed_chapter(@chapter) %>
 
-<%= render "story_box.html", conn: @conn, story: @story %>
+<%= render "story_box.html", conn: @conn, story: @story, author: @story.author, buttons: false %>
 
 <%= render "chapter_navigation.html", story: @story, chapter: chapter %>
 

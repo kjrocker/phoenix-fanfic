@@ -4,3 +4,5 @@
     <li class="list-group-item"><%= link user.username, to: user_path(@conn, :show, user) %></li>
   <% end %>
 </ul>
+
+<%= pagination_links @page %>

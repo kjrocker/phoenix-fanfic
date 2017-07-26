@@ -28,11 +28,18 @@ defmodule FfReader.Accounts do
   end
 
   def find_confirmation(token) do
-    User |> where(confirmation_token: ^token) |> Repo.one 
+    User |> where(confirmation_token: ^token) |> Repo.one
   end
 
-  def list_users do
-    Repo.all(User)
+  def list_users(params \\ %{}) do
+    User
+    |> Repo.paginate(params)
+  end
+
+  def get_user_profile(id) do
+    User
+    |> preload(:stories)
+    |> Repo.get(id)
   end
 
   def get_user!(id), do: Repo.get!(User, id)

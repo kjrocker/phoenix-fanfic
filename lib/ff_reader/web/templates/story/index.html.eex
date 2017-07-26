@@ -2,8 +2,10 @@
 
 <div class="panel-group">
   <%= for story <- @stories do %>
-    <%= render "story_box.html", conn: @conn, story: story %>
+    <%= render "story_box.html", conn: @conn, story: story, author: story.author, buttons: false %>
   <% end %>
 </div>
 
-<span><%= link "New Story", to: story_change_path(@conn, :new), class: "btn btn-block btn-primary" %></span>
+<div class="text-center">
+  <%= pagination_links @page %>
+</div>

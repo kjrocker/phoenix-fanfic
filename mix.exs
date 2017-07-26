@@ -17,7 +17,7 @@ defmodule FfReader.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {FfReader.Application, []},
-     extra_applications: [:logger, :runtime_tools, :comeonin, :ex_machina, :bamboo]]
+     extra_applications: [:logger, :runtime_tools, :comeonin, :ex_machina, :bamboo, :scrivener_ecto, :scrivener_html]]
   end
 
   # Specifies which paths to compile per environment.
@@ -43,7 +43,9 @@ defmodule FfReader.Mixfile do
       {:ex_machina, "~> 2.0"},
       {:html_sanitize_ex, "~> 1.0.0"},
       {:earmark, "~> 1.2.2"},
-      {:bamboo, "~> 0.8"}
+      {:bamboo, "~> 0.8"},
+      {:scrivener_ecto, "~> 1.0"},
+      {:scrivener_html, "~> 1.7"}
     ]
   end
 

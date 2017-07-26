@@ -37,6 +37,9 @@ config :canary,
   unauthorized_handler: {FfReader.Web.Auth.Canary, :handle_unauthorized},
   not_found_handler: {FfReader.Web.Auth.Canary, :handle_not_found}
 
+config :scrivener_html,
+  routes_helper: FfReader.Router.Helpers
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

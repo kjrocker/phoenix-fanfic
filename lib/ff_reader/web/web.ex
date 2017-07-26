@@ -42,6 +42,7 @@ defmodule FfReader.Web do
       import FfReader.Web.Router.Helpers
       import FfReader.Web.ErrorHelpers
       import FfReader.Web.Gettext
+      import Scrivener.HTML
 
       import FfReader.Web.Auth.Helpers
     end

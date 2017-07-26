@@ -28,10 +28,10 @@ defmodule FfReader.Fiction do
     |> Repo.get!(id)
   end
 
-  def list_stories do
+  def list_stories(params \\ %{}) do
     Story
     |> preload(:author)
-    |> Repo.all
+    |> Repo.paginate(params)
   end
 
   def list_chapters do

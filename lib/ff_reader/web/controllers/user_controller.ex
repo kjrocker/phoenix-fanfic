@@ -3,9 +3,9 @@ defmodule FfReader.Web.UserController do
   alias FfReader.Accounts
   import FfReader.Web.Auth.Login
 
-  def index(conn, _params) do
-    users = Accounts.list_users
-    render(conn, "index.html", users: users)
+  def index(conn, params) do
+    {users, page} = Map.pop(Accounts.list_users(params), :entries)
+    render(conn, "index.html", users: users, page: page)
   end
 
   def new(conn, _params) do
@@ -27,7 +27,7 @@ defmodule FfReader.Web.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
+    user = Accounts.get_user_profile(id)
     render(conn, "show.html", user: user)
   end
 

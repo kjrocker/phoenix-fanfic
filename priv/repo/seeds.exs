@@ -9,6 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+import FfReader.Factory
 alias FfReader.Accounts
 alias FfReader.Repo
 
@@ -28,3 +29,9 @@ for user <- users do
        IO.inspect(changeset)
   end
 end
+
+author = %{email: "seed_author@example.com", username: "Seed Author", password: "password"}
+{_, author} = Accounts.create_user(author)
+Accounts.confirm!(author)
+
+insert_list(25, :story, author: author)

@@ -12,7 +12,7 @@ defmodule FfReader.FictionTest do
 
     test "list_stories/0 returns all stories" do
       story = insert(:story)
-      assert Fiction.list_stories() == [story]
+      assert Fiction.list_stories().entries == [story]
     end
 
     test "get_story!/1 returns the story with given id" do
