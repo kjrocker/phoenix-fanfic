@@ -29,5 +29,5 @@ config :ff_reader, FfReader.Repo,
   ssl: true
 
 config :ff_reader, FfReader.Mailer,
-  adapter: Bamboo.SendGridAdapter,
+  adapter: Bamboo.SendgridAdapter,
   api_key: System.get_env("SENDGRID_API_KEY")
