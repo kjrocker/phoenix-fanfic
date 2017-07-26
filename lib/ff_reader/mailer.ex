@@ -7,9 +7,9 @@ defmodule FfReader.Email do
   alias FfReader.Web.LayoutView
 
   def confirmation_email(user, url) do
-    base_email
+    base_email()
     |> to(user.email)
-    |> subject("Email Confirmation")
+    |> subject("Fanfic.Co Email Confirmation")
     |> assign(:user, user)
     |> assign(:url, url)
     |> render("confirmation.html")
@@ -17,7 +17,7 @@ defmodule FfReader.Email do
 
   defp base_email do
     new_email()
-    |> from("no-reply@fanfic.co")
+    |> from("Fanfic.Co Robots<no-reply@fanfic.co>")
     |> put_layout({LayoutView, :email})
   end
 end

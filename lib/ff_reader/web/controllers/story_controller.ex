@@ -9,7 +9,7 @@ defmodule FfReader.Web.StoryController do
   end
 
   # Show the specific chapter, otherwise redirect to first chapter
-  def show(conn, %{"id" => id, "num" => num} = params) do
+  def show(conn, %{"id" => id, "num" => num}) do
     story = Fiction.get_story!(id)
     case Fiction.get_n_chapter(id, num) do
       %Fiction.Chapter{} = chapter ->
@@ -22,7 +22,7 @@ defmodule FfReader.Web.StoryController do
   end
 
   # Without a chapter number, use the first one
-  def show(conn, %{"id" => id} = params) do
+  def show(conn, %{"id" => id}) do
     story = Fiction.get_story!(id)
     chapter = Fiction.get_first_chapter(id)
     render(conn, "show.html", story: story, chapter: chapter)

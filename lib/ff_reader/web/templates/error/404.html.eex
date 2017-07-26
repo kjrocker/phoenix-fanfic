@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -12,18 +11,13 @@
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <%= render "navbar.html", conn: @conn %>
+    <%= render "minimal_navbar.html" %>
     <div class="container">
-      <%= for flash <- flashes() do %>
-        <%= if get_flash(@conn, flash.name) do %>
-          <p class="alert <%= flash.class %>"><%= get_flash(@conn, flash.name) %></p>
-        <%= end %>
-      <% end %>
-
       <main role="main">
-        <%= render @view_module, @view_template, assigns %>
+        <h1>404 Page Not Found</h1>
+        <p>This isn't the page you were looking for.</p>
       </main>
     </div>
-    <%= render "footer.html" %>
+    <%= render FfReader.Web.LayoutView, "footer.html" %>
   </body>
 </html>

@@ -33,7 +33,7 @@ defmodule FfReader.Web.UserController do
 
   defp send_confirmation(conn, user) do
     token = Phoenix.Token.sign(FfReader.Web.Endpoint, "user", user.id)
-    url = confirmation_url(conn, :edit, token)
+    url = FfReader.Config.external_url(confirmation_path(conn, :edit, token))
     {:ok, user} = Accounts.request_confirmation(user, token)
     FfReader.Email.confirmation_email(user, url) |> FfReader.Mailer.deliver_later
     conn

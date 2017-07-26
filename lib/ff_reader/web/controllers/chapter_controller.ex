@@ -23,13 +23,13 @@ defmodule FfReader.Web.ChapterController do
     chapter_params = Map.put(chapter_params, "story_id", story_id)
     story = Fiction.get_story!(story_id)
     case Fiction.create_chapter(chapter_params) do
-      {:ok, chapter} ->
+      {:ok, _} ->
         conn
-        |> put_flash(:info, "Story created successfully.")
+        |> put_flash(:info, "Chapter Saved Successfully")
         |> redirect(to: story_path(conn, :show, story))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:error, "Error: Errors not created")
+        |> put_flash(:error, "Error: Chapter Creation Failed")
         |> render("new.html", changeset: changeset, story: story)
     end
   end
@@ -38,13 +38,13 @@ defmodule FfReader.Web.ChapterController do
     chapter = Fiction.get_chapter!(id)
     story = Fiction.get_story!(chapter.story_id)
     case Fiction.update_chapter(chapter, chapter_params) do
-      {:ok, chapter} ->
+      {:ok, _} ->
         conn
-        |> put_flash(:info, "Chapter updated successfully.")
+        |> put_flash(:info, "Chapter Updated Successfully")
         |> redirect(to: story_change_path(conn, :edit, story))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:error, "Errors occured. Beep boop.")
+        |> put_flash(:error, "Error: Chapter Update Failed")
         |> render("edit.html", chapter: chapter, changeset: changeset)
     end
   end

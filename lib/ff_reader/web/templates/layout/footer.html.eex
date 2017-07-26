@@ -1,7 +1,18 @@
 <footer class="footer">
   <div class="container">
-    <p>
-      &copy; Kevin Rocker 2017&ndash;<%= DateTime.utc_now.year %>
-    </p>
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          &copy; Kevin Rocker 2017&ndash;<%= DateTime.utc_now.year %>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div class="pull-right">
+          <p>
+            <%= link "Source", to: "https://github.com/kjrocker/phoenix-fanfic" %>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>

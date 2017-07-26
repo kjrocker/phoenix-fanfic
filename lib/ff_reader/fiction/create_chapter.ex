@@ -6,8 +6,8 @@ defmodule FfReader.Fiction.Chapter.Transaction do
   def call(chapter, action) do
     case transaction(chapter, action) |> Repo.transaction do
       {:ok, %{chapter: chapter}} -> {:ok, chapter}
-      {:error, _, changeset, _} -> {:error, changeset}
-      {:error, _, _, changeset} -> {:error, changeset}
+      {:error, _, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+      {:error, _, _, %Ecto.Changeset{} = changeset} -> {:error, changeset}
     end
   end
 

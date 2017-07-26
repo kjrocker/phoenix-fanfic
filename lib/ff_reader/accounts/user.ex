@@ -48,7 +48,7 @@ defmodule FfReader.Accounts.User do
   end
 
   # Methods below this point modified from Coherence
-  defp validate_authentication(changeset, params \\ []) do
+  defp validate_authentication(changeset, params) do
      changeset
      |> validate_length(:password, min: 8)
      |> validate_password(params)

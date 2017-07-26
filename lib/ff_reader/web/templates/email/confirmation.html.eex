@@ -1,1 +1,9 @@
-<p><%= link "Confirm Email", to: @url %></p>
+<h3>Hello <%= @user.username %>,</h3>
+<p>Thank you for registering with Fanfic.Co, click the link below to confirm your email.</p>
+
+<%= link "Confirm #{@user.email}", to: @url %></p>
+
+<p>We promise we won't send you anything. At this point, we couldn't afford it even if we wanted to. Once we <em>can</em> afford to send bulk emails, we'll only use it to notify you when your subscriptions update.</p>
+
+Sincerely,
+The Administrator(s)

@@ -17,7 +17,7 @@ defmodule FfReader.Web.ConfirmationController do
             conn
             |> put_flash(:info, "Email Confirmed Successfully")
             |> redirect(to: "/")
-          {:error, changeset} ->
+          {:error, _} ->
             conn
             |> put_flash(:error, "Problem Confirming Email Address")
             |> redirect(to: "/")
