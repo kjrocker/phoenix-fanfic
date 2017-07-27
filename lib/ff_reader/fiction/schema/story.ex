@@ -10,7 +10,8 @@ defmodule FfReader.Fiction.Story do
     field :title, :string
     field :chapter_count, :integer
     belongs_to :author, Accounts.User
-    belongs_to :series, Fiction.Series
+    
+    many_to_many :series, Fiction.Series, join_through: "series_stories"
     has_many :chapters, Fiction.Chapter
 
     timestamps()

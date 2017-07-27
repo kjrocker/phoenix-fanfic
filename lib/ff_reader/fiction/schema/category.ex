@@ -4,8 +4,9 @@ defmodule FfReader.Fiction.Category do
   alias FfReader.Fiction.{Series, Category}
 
   schema "fiction_categories" do
-    field :title, :string
-
+    field :name, :string
+    field :slug, :string
+    
     has_many :series, Series
     has_many :stories, through: [:series, :stories]
 
@@ -15,7 +16,24 @@ defmodule FfReader.Fiction.Category do
   @doc false
   def changeset(%Category{} = category, attrs) do
     category
-    |> cast(attrs, [:title])
-    |> validate_required([:title])
+    |> cast(attrs, [:name])
+    |> process_name
+    |> validate_required([:name, :slug])
+  end
+
+  defp process_name(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{name: name}} ->
+        put_change(changeset, :slug, process(name))
+      _ -> changeset
+    end
+  end
+
+  defp process(name) do
+    name
+    |> String.trim
+    |> String.downcase
+    |> String.split("/")
+    |> Enum.at(0)
   end
 end

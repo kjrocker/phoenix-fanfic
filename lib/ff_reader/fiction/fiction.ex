@@ -6,7 +6,7 @@ defmodule FfReader.Fiction do
   import Ecto.Query, warn: false
   alias FfReader.Repo
 
-  alias FfReader.Fiction.{Story, Chapter}
+  alias FfReader.Fiction.{Story, Chapter, Category, Series}
 
   def get_first_chapter(id) do
     Chapter
@@ -28,8 +28,27 @@ defmodule FfReader.Fiction do
     |> Repo.get!(id)
   end
 
+  def list_categories() do
+    Category
+    |> order_by([c], c.name)
+    |> Repo.all
+  end
+
+  def list_series_by_category(category_id) do
+    Series
+    |> where([s], s.category_id == ^category_id)
+    |> Repo.all
+  end
+
   def list_stories(params \\ %{}) do
     Story
+    |> preload(:author)
+    |> Repo.paginate(params)
+  end
+
+  def list_stories_by_series(%{series_id: id} = params) do
+    Story
+    |> where([s], s.series_id == ^id)
     |> preload(:author)
     |> Repo.paginate(params)
   end
@@ -44,6 +63,12 @@ defmodule FfReader.Fiction do
     Chapter
     |> preload([:story, story: :author])
     |> Repo.get!(id)
+  end
+
+  def create_category(attrs \\ %{}) do
+    %Category{}
+    |> Category.changeset(attrs)
+    |> Repo.insert
   end
 
   def create_story(attrs \\ %{}) do

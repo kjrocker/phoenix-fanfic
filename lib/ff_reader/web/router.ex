@@ -48,7 +48,7 @@ defmodule FfReader.Web.Router do
       resources "/series", SeriesController, only: [:index, :show]
     end
 
-    resources "/stories", StoryController, only: [:show]
+    resources "/stories", StoryController, only: [:index, :show]
 
     resources "/confirmations", ConfirmationController, only: [:edit]
     get "/stories/:id/:num", StoryController, :show

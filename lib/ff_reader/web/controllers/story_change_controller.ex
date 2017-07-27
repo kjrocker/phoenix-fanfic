@@ -52,6 +52,6 @@ defmodule FfReader.Web.StoryChangeController do
 
     conn
     |> put_flash(:info, "Story deleted successfully.")
-    |> redirect(to: story_path(conn, :index))
+    |> redirect(to: "/")
   end
 end

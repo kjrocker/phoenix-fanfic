@@ -4,6 +4,9 @@ defmodule FfReader.Repo.Migrations.CreateFictionSeries do
   def change do
     create table(:fiction_categories) do
       add :name, :string, null: false
+      add :slug, :string, null: false
+
+      timestamps()
     end
 
     create table(:fiction_series) do
@@ -16,12 +19,15 @@ defmodule FfReader.Repo.Migrations.CreateFictionSeries do
       timestamps()
     end
 
-    alter table(:fiction_stories) do
-      # Again, wiping out stories during a series shuffle makes no sense
+    create table(:series_stories) do
+      # Deleting a story obviously purges it, but keep the assocation
+      # with a series so stories that share a series don't get split up
+      # if the series is for some reason deleted
+      add :story_id, references(:fiction_stories, on_delete: :delete_all)
       add :series_id, references(:fiction_series, on_delete: :nothing)
     end
 
-    create index(:fiction_stories, [:series_id])
+    create index(:series_stories, [:series_id, :story_id])
     create index(:fiction_series, [:category_id])
     create unique_index(:fiction_series, [:slug])
   end

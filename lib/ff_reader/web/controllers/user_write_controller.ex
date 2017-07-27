@@ -29,6 +29,6 @@ defmodule FfReader.Web.UserWriteController do
     conn
     |> Guardian.Plug.sign_out
     |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: story_path(conn, :index))
+    |> redirect(to: "/")
   end
 end

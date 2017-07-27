@@ -48,7 +48,8 @@ CREATE TABLE accounts_users (
     reset_password_token character varying(255),
     reset_password_sent_at timestamp without time zone,
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    admin boolean DEFAULT false NOT NULL
 );
 
 
@@ -77,7 +78,10 @@ ALTER SEQUENCE accounts_users_id_seq OWNED BY accounts_users.id;
 
 CREATE TABLE fiction_categories (
     id integer NOT NULL,
-    name character varying(255) NOT NULL
+    name character varying(255) NOT NULL,
+    slug character varying(255) NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -179,8 +183,7 @@ CREATE TABLE fiction_stories (
     chapter_count integer DEFAULT 0 NOT NULL,
     author_id integer,
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    series_id integer
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -211,6 +214,36 @@ CREATE TABLE schema_migrations (
     version bigint NOT NULL,
     inserted_at timestamp without time zone
 );
+
+
+--
+-- Name: series_stories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE series_stories (
+    id integer NOT NULL,
+    story_id integer,
+    series_id integer
+);
+
+
+--
+-- Name: series_stories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE series_stories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: series_stories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE series_stories_id_seq OWNED BY series_stories.id;
 
 
 --
@@ -246,6 +279,13 @@ ALTER TABLE ONLY fiction_series ALTER COLUMN id SET DEFAULT nextval('fiction_ser
 --
 
 ALTER TABLE ONLY fiction_stories ALTER COLUMN id SET DEFAULT nextval('fiction_stories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY series_stories ALTER COLUMN id SET DEFAULT nextval('series_stories_id_seq'::regclass);
 
 
 --
@@ -294,6 +334,14 @@ ALTER TABLE ONLY fiction_stories
 
 ALTER TABLE ONLY schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: series_stories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY series_stories
+    ADD CONSTRAINT series_stories_pkey PRIMARY KEY (id);
 
 
 --
@@ -346,10 +394,10 @@ CREATE INDEX fiction_stories_author_id_index ON fiction_stories USING btree (aut
 
 
 --
--- Name: fiction_stories_series_id_index; Type: INDEX; Schema: public; Owner: -
+-- Name: series_stories_series_id_story_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX fiction_stories_series_id_index ON fiction_stories USING btree (series_id);
+CREATE INDEX series_stories_series_id_story_id_index ON series_stories USING btree (series_id, story_id);
 
 
 --
@@ -377,16 +425,24 @@ ALTER TABLE ONLY fiction_stories
 
 
 --
--- Name: fiction_stories_series_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: series_stories_series_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY fiction_stories
-    ADD CONSTRAINT fiction_stories_series_id_fkey FOREIGN KEY (series_id) REFERENCES fiction_series(id);
+ALTER TABLE ONLY series_stories
+    ADD CONSTRAINT series_stories_series_id_fkey FOREIGN KEY (series_id) REFERENCES fiction_series(id);
+
+
+--
+-- Name: series_stories_story_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY series_stories
+    ADD CONSTRAINT series_stories_story_id_fkey FOREIGN KEY (story_id) REFERENCES fiction_stories(id) ON DELETE CASCADE;
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20170715015910), (20170717172231), (20170717212739), (20170727010406);
+INSERT INTO "schema_migrations" (version) VALUES (20170715015910), (20170717172231), (20170717212739), (20170727010406), (20170727012202);
 

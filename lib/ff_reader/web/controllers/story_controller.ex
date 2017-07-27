@@ -3,8 +3,8 @@ defmodule FfReader.Web.StoryController do
 
   alias FfReader.Fiction
 
-  def index(conn, params) do
-    {stories, page} = Map.pop(Fiction.list_stories(params), :entries)
+  def index(conn, _params) do
+    {stories, page} = Map.pop(Fiction.list_stories, :entries)
     render(conn, "index.html", stories: stories, page: page)
   end
 

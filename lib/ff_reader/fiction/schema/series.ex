@@ -8,7 +8,7 @@ defmodule FfReader.Fiction.Series do
     field :title, :string
     field :slug, :string
 
-    has_many :stories, Fiction.Story
+    many_to_many :stories, Story, join_through: "series_stories"
     belongs_to :category, Fiction.Category
 
     timestamps()
@@ -35,7 +35,7 @@ defmodule FfReader.Fiction.Series do
   defp safe_title(title) do
     title
     |> String.trim
-    |> String.lowercase
+    |> String.downcase
     |> String.replace(~r/(- )+/, "_")
     |> URI.encode
   end
