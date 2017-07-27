@@ -24,7 +24,7 @@ defmodule FfReader.Fiction.Series do
     |> assoc_constraint(:category)
   end
 
-  defp create_slug(changeset, _params) do
+  defp create_slug(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{title: title}} ->
         put_change(changeset, :slug, safe_title(title))

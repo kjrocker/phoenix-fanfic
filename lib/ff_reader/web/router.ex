@@ -40,7 +40,16 @@ defmodule FfReader.Web.Router do
     get "/", PageController, :index
     resources "/users", UserController, only: [:show, :index, :new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    resources "/stories", StoryController, only: [:show, :index]
+
+    # Route to display all categories (Anime, Books, etc)
+    resources "/categories", CategoryController, only: [:index] do
+      # An index of all series belonging to that category
+      # A show page containing all stories from that series
+      resources "/series", SeriesController, only: [:index, :show]
+    end
+
+    resources "/stories", StoryController, only: [:show]
+
     resources "/confirmations", ConfirmationController, only: [:edit]
     get "/stories/:id/:num", StoryController, :show
   end
