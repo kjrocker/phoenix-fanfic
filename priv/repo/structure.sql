@@ -72,6 +72,35 @@ ALTER SEQUENCE accounts_users_id_seq OWNED BY accounts_users.id;
 
 
 --
+-- Name: fiction_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE fiction_categories (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+--
+-- Name: fiction_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE fiction_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fiction_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE fiction_categories_id_seq OWNED BY fiction_categories.id;
+
+
+--
 -- Name: fiction_chapters; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -107,6 +136,39 @@ ALTER SEQUENCE fiction_chapters_id_seq OWNED BY fiction_chapters.id;
 
 
 --
+-- Name: fiction_series; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE fiction_series (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    slug character varying(255) NOT NULL,
+    category_id integer,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: fiction_series_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE fiction_series_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fiction_series_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE fiction_series_id_seq OWNED BY fiction_series.id;
+
+
+--
 -- Name: fiction_stories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -117,7 +179,8 @@ CREATE TABLE fiction_stories (
     chapter_count integer DEFAULT 0 NOT NULL,
     author_id integer,
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    series_id integer
 );
 
 
@@ -161,7 +224,21 @@ ALTER TABLE ONLY accounts_users ALTER COLUMN id SET DEFAULT nextval('accounts_us
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY fiction_categories ALTER COLUMN id SET DEFAULT nextval('fiction_categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY fiction_chapters ALTER COLUMN id SET DEFAULT nextval('fiction_chapters_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fiction_series ALTER COLUMN id SET DEFAULT nextval('fiction_series_id_seq'::regclass);
 
 
 --
@@ -180,11 +257,27 @@ ALTER TABLE ONLY accounts_users
 
 
 --
+-- Name: fiction_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fiction_categories
+    ADD CONSTRAINT fiction_categories_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: fiction_chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fiction_chapters
     ADD CONSTRAINT fiction_chapters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fiction_series_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fiction_series
+    ADD CONSTRAINT fiction_series_pkey PRIMARY KEY (id);
 
 
 --
@@ -232,10 +325,31 @@ CREATE UNIQUE INDEX fiction_chapters_story_id_number_index ON fiction_chapters U
 
 
 --
+-- Name: fiction_series_category_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX fiction_series_category_id_index ON fiction_series USING btree (category_id);
+
+
+--
+-- Name: fiction_series_slug_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX fiction_series_slug_index ON fiction_series USING btree (slug);
+
+
+--
 -- Name: fiction_stories_author_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX fiction_stories_author_id_index ON fiction_stories USING btree (author_id);
+
+
+--
+-- Name: fiction_stories_series_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX fiction_stories_series_id_index ON fiction_stories USING btree (series_id);
 
 
 --
@@ -247,6 +361,14 @@ ALTER TABLE ONLY fiction_chapters
 
 
 --
+-- Name: fiction_series_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fiction_series
+    ADD CONSTRAINT fiction_series_category_id_fkey FOREIGN KEY (category_id) REFERENCES fiction_stories(id);
+
+
+--
 -- Name: fiction_stories_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -255,8 +377,16 @@ ALTER TABLE ONLY fiction_stories
 
 
 --
+-- Name: fiction_stories_series_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fiction_stories
+    ADD CONSTRAINT fiction_stories_series_id_fkey FOREIGN KEY (series_id) REFERENCES fiction_series(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20170715015910), (20170717172231), (20170717212739);
+INSERT INTO "schema_migrations" (version) VALUES (20170715015910), (20170717172231), (20170717212739), (20170727010406);
 
