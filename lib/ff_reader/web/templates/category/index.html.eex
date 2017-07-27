@@ -1,0 +1,5 @@
+<ul>
+  <%= for c <- @categories do %>
+    <li><%= link c.name, to: category_series_path(@conn, :index, c) %></li>
+  <% end %>
+</ul>

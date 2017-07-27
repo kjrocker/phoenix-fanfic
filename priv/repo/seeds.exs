@@ -13,17 +13,32 @@ import FfReader.Factory
 alias FfReader.Fiction.Category
 alias FfReader.Repo
 
-categories = [
-  %{name: "Anime/Manga"},
-  %{name: "Books"},
-  %{name: "Movies"},
-  %{name: "TV Shows"},
-  %{name: "Comics"},
-  %{name: "Games"},
-  %{name: "Plays/Musicals"},
-  %{name: "Other"}
+# categories = [
+#   %{name: "Anime/Manga"},
+#   %{name: "Books"},
+#   %{name: "Movies"},
+#   %{name: "TV Shows"},
+#   %{name: "Comics"},
+#   %{name: "Games"},
+#   %{name: "Plays/Musicals"},
+#   %{name: "Other"}
+# ]
+#
+# for c <- categories do
+#   FfReader.Fiction.create_category(c)
+# end
+
+Repo.delete_all(FfReader.Fiction.Series)
+
+books = FfReader.Fiction.get_category(2)
+
+series = [
+  %{title: "Worm", category: books},
+  %{title: "Pact", category: books},
+  %{title: "Twig", category: books},
+  %{title: "Harry Potter", category: books}
 ]
 
-for c <- categories do
-  FfReader.Fiction.create_category(c)
+for s <- series do
+  FfReader.Fiction.create_series(s)
 end

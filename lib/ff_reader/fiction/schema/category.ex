@@ -6,7 +6,7 @@ defmodule FfReader.Fiction.Category do
   schema "fiction_categories" do
     field :name, :string
     field :slug, :string
-    
+
     has_many :series, Series
     has_many :stories, through: [:series, :stories]
 

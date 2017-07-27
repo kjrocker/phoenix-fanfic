@@ -9,7 +9,7 @@ defmodule FfReader.Fiction.Series do
     field :slug, :string
 
     many_to_many :stories, Story, join_through: "series_stories"
-    belongs_to :category, Fiction.Category
+    belongs_to :category, Category
 
     timestamps()
   end

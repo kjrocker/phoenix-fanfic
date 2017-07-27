@@ -59,6 +59,8 @@ defmodule FfReader.Fiction do
     |> Repo.all
   end
 
+  def get_category(id), do: Repo.get(Category, id)
+
   def get_chapter!(id) do
     Chapter
     |> preload([:story, story: :author])
@@ -69,6 +71,12 @@ defmodule FfReader.Fiction do
     %Category{}
     |> Category.changeset(attrs)
     |> Repo.insert
+  end
+
+  def create_series(attrs \\ %{}) do
+    %Series{}
+    |> Series.changeset(attrs)
+    |> Repo.insert!
   end
 
   def create_story(attrs \\ %{}) do

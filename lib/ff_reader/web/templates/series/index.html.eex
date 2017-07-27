@@ -1,0 +1,5 @@
+<ul>
+  <%= for s <- @series do %>
+    <li><%= s.title %></li>
+  <% end %>
+</ul>
