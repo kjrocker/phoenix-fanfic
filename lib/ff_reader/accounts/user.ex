@@ -20,6 +20,8 @@ defmodule FfReader.Accounts.User do
 
     has_many :stories, FfReader.Fiction.Story, foreign_key: :author_id
 
+    field :admin, :boolean
+    
     timestamps()
   end
 

@@ -10,6 +10,7 @@ defmodule FfReader.Fiction.Story do
     field :title, :string
     field :chapter_count, :integer
     belongs_to :author, Accounts.User
+    belongs_to :series, Fiction.Series
     has_many :chapters, Fiction.Chapter
 
     timestamps()
@@ -22,5 +23,6 @@ defmodule FfReader.Fiction.Story do
     |> cast_assoc(:chapters)
     |> validate_required([:title, :summary, :author_id])
     |> assoc_constraint(:author)
+    |> assoc_constraint(:series)
   end
 end

@@ -3,7 +3,6 @@ defmodule FfReader.Fiction.Chapter do
   import Ecto.Changeset
   alias FfReader.Fiction.{Chapter, Story}
 
-
   schema "fiction_chapters" do
     field :body, :string
     field :number, :integer
