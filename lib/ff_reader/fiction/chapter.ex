@@ -17,7 +17,7 @@ defmodule FfReader.Fiction.Chapter do
   @doc false
   def changeset(%Chapter{} = chapter, attrs) do
     chapter
-    |> cast(attrs, [:title, :raw, :number, :story_id])
+    |> cast(attrs, [:title, :raw, :number, :body, :story_id])
     |> parse_raw_markdown
     |> add_default_number
     |> validate_required([:title, :raw, :body, :number])
@@ -33,9 +33,10 @@ defmodule FfReader.Fiction.Chapter do
     end
   end
 
+  # Parse if raw text was submitted without a body
   defp parse_raw_markdown(changeset) do
     case changeset do
-      %Ecto.Changeset{valid?: true, changes: %{raw: raw_text}} ->
+      %Ecto.Changeset{valid?: true, changes: %{raw: raw_text, body: nil}} ->
         put_change(changeset, :body, parse_text(raw_text))
       _ -> changeset
     end

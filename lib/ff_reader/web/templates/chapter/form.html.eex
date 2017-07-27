@@ -1,25 +1,45 @@
-<%= form_for @changeset, @action, [as: :chapter], fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="ui error message">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for @changeset, @action, [as: :chapter], fn f -> %>
+      <%= if @changeset.action do %>
+        <div class="ui error message">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+
+      <%= hidden_input f, :number, value: (@story.chapter_count + 1) %>
+      <%= hidden_input f, :body, id: "chapterBodyInput" %>
+
+      <div class="form-group">
+        <%= label f, :title %>
+        <%= text_input f, :title, class: "form-control" %>
+        <%= error_tag f, :title %>
+      </div>
+
+      <div class="form-group">
+        <%= label f, :raw, "Markdown Text" %>
+        <%= textarea f, :raw, id: "chapterBody", class: "form-control", rows: 20 %>
+        <%= error_tag f, :raw %>
+      </div>
+
+      <div class="form-group">
+        <%= submit "Submit", class: "btn btn-block btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <h2 id="chapterTitlePreview"></h2>
+    <div id="chapterBodyPreview" class="text">
+      <%= raw @changeset.data.body %>
     </div>
-  <% end %>
-
-  <%= hidden_input f, :number, value: (@story.chapter_count + 1) %>
-
-  <div class="form-group">
-    <%= label f, :title %>
-    <%= text_input f, :title, class: "form-control" %>
-    <%= error_tag f, :title %>
   </div>
+</div>
 
-  <div class="form-group">
-    <%= label f, :raw, "Markdown Text" %>
-    <%= textarea f, :raw, class: "form-control", rows: 20 %>
-    <%= error_tag f, :raw %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-block btn-primary" %>
-  </div>
-<% end %>
+<script type="text/javascript">
+const marked = require('marked')
+$('#chapterBody').on('change', function(e){
+  const text = marked(e.target.value)
+  $('#chapterBodyPreview').html(text)
+  $('#chapterBodyInput').val(text)
+})
+</script>
