@@ -6,16 +6,13 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :ff_reader, FfReader.Web.Endpoint,
+config :fanfic, FanficWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../assets", __DIR__)]]
-
-config :ff_reader, FfReader.Mailer,
-  adapter: Bamboo.LocalAdapter
 
 # ## SSL Support
 #
@@ -34,13 +31,13 @@ config :ff_reader, FfReader.Mailer,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :ff_reader, FfReader.Web.Endpoint,
+config :fanfic, FanficWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/ff_reader/web/views/.*(ex)$},
-      ~r{lib/ff_reader/web/templates/.*(eex)$}
+      ~r{lib/fanfic_web/views/.*(ex)$},
+      ~r{lib/fanfic_web/templates/.*(eex)$}
     ]
   ]
 
@@ -52,10 +49,10 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :ff_reader, FfReader.Repo,
+config :fanfic, Fanfic.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "password",
-  database: "ff_reader_dev",
+  password: "postgres",
+  database: "fanfic_dev",
   hostname: "localhost",
   pool_size: 10

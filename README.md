@@ -1,4 +1,4 @@
-# FfReader
+# Fanfic
 
 To start your Phoenix server:
 

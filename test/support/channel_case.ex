@@ -1,4 +1,4 @@
-defmodule FfReader.Web.ChannelCase do
+defmodule FanficWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule FfReader.Web.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint FfReader.Web.Endpoint
+      @endpoint FanficWeb.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FfReader.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Fanfic.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FfReader.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Fanfic.Repo, {:shared, self()})
     end
     :ok
   end

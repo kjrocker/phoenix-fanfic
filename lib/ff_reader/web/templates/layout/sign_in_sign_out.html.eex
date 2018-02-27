@@ -1,7 +1,0 @@
-<%= if logged_in?(@conn) do %>
-  <li><%= link current_user(@conn).email, to: user_path(@conn, :show, current_user(@conn)), class: "navbar-brand" %></li>
-  <li><%= link "Logout", to: session_path(@conn, :delete, :access), method: :delete, class: "navbar-brand" %></li>
-<% else %>
-  <li><%= link "Register", to: user_path(@conn, :new), class: "navbar-brand" %></li>
-  <li><%= link "Login", to: session_path(@conn, :new), class: "navbar-brand" %></li>
-<% end %>

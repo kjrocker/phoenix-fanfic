@@ -5,14 +5,13 @@ exports.config = {
       joinTo: "js/app.js"
 
       // To use a separate vendor.js bundle, specify two files path
-      // https://github.com/brunch/brunch/blob/master/docs/config.md#files
+      // http://brunch.io/docs/config#-files-
       // joinTo: {
-      //  "js/app.js": /^(js)/,
-      //  "js/vendor.js": /^(vendor)|(deps)/
+      //   "js/app.js": /^js/,
+      //   "js/vendor.js": /^(?!js)/
       // }
       //
       // To change the order of concatenation of files, explicitly mention here
-      // https://github.com/brunch/brunch/tree/master/docs#concatenation
       // order: {
       //   before: [
       //     "vendor/js/jquery-2.1.1.js",
@@ -21,10 +20,7 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css",
-      order: {
-        after: ["css/app.scss"]
-      }
+      joinTo: "css/app.css"
     },
     templates: {
       joinTo: "js/app.js"
@@ -51,15 +47,6 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
-    },
-    copycat: {
-      "fonts": ["node_modules/bootstrap-sass/assets/fonts/bootstrap"]
-    },
-    sass: {
-      options: {
-        includePaths: ["node_modules/bootstrap-sass/assets/stylesheets"],
-        precision: 8
-      }
     }
   },
 
@@ -70,11 +57,6 @@ exports.config = {
   },
 
   npm: {
-    enabled: true,
-    globals: {
-      $: 'jquery',
-      jQuery: 'jquery',
-      bootstrap: 'bootstrap-sass'
-    }
+    enabled: true
   }
 };

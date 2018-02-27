@@ -1,23 +1,27 @@
-defmodule FfReader.Mixfile do
+defmodule Fanfic.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :ff_reader,
-     version: "0.0.1",
-     elixir: "~> 1.4",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     start_permanent: Mix.env == :prod,
-     aliases: aliases(),
-     deps: deps()]
+    [
+      app: :fanfic,
+      version: "0.0.1",
+      elixir: "~> 1.4",
+      elixirc_paths: elixirc_paths(Mix.env),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      start_permanent: Mix.env == :prod,
+      aliases: aliases(),
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {FfReader.Application, []},
-     extra_applications: [:logger, :runtime_tools, :comeonin, :ex_machina, :bamboo, :scrivener_ecto, :scrivener_html]]
+    [
+      mod: {Fanfic.Application, []},
+      extra_applications: [:logger, :runtime_tools]
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -29,23 +33,14 @@ defmodule FfReader.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0-rc", override: true},
+      {:phoenix, "~> 1.3.0"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.6"},
+      {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
-      {:guardian, "~> 0.14"},
-      {:comeonin, "~> 3.2"},
-      {:canary, "~> 1.1.1"},
-      {:ex_machina, "~> 2.0"},
-      {:html_sanitize_ex, "~> 1.0.0"},
-      {:earmark, "~> 1.2.2"},
-      {:bamboo, "~> 0.8"},
-      {:scrivener_ecto, "~> 1.0"},
-      {:scrivener_html, "~> 1.7"}
+      {:cowboy, "~> 1.0"}
     ]
   end
 
@@ -56,9 +51,10 @@ defmodule FfReader.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.load", "run priv/repo/seeds.exs"],
-     "ecto.reset": ["ecto.drop", "ecto.setup"],
-     "ecto.migrate": ["ecto.migrate", "ecto.dump"],
-     "test": ["ecto.create --quiet", "ecto.load", "test"]]
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+    ]
   end
 end

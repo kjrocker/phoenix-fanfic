@@ -1,4 +1,4 @@
-defmodule FfReader.DataCase do
+defmodule Fanfic.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,21 +16,20 @@ defmodule FfReader.DataCase do
 
   using do
     quote do
-      alias FfReader.Repo
+      alias Fanfic.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import FfReader.Factory
-      import FfReader.DataCase
+      import Fanfic.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FfReader.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Fanfic.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FfReader.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Fanfic.Repo, {:shared, self()})
     end
 
     :ok
@@ -39,7 +38,7 @@ defmodule FfReader.DataCase do
   @doc """
   A helper that transform changeset errors to a map of messages.
 
-      changeset = Accounts.create_user(%{password: "short"})
+      assert {:error, changeset} = Accounts.create_user(%{password: "short"})
       assert "password is too short" in errors_on(changeset).password
       assert %{password: ["password is too short"]} = errors_on(changeset)
 
